@@ -1,0 +1,124 @@
+{
+  "date": "2026-11-18T21:57:58+00:00",
+  "total_seconds": 956.1,
+  "machine": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "cpu": "AMD Ryzen 5 7520U with Radeon Graphics",
+    "logical_cores": 8,
+    "torch_threads": 8,
+    "ram_gib": 15.3,
+    "gpu": "none seen by torch"
+  },
+  "stages": [
+    {
+      "stage": "load image",
+      "seconds_mean": 0.138,
+      "seconds_min": 0.098,
+      "seconds_max": 0.194,
+      "seconds_total": 0.968,
+      "runs": 7,
+      "readme_claim_seconds": null,
+      "readme_claim_conditions": null,
+      "difference_percent": null
+    },
+    {
+      "stage": "encode image (OWLv2)",
+      "seconds_mean": 14.791,
+      "seconds_min": 12.428,
+      "seconds_max": 17.905,
+      "seconds_total": 103.534,
+      "runs": 7,
+      "readme_claim_seconds": 13.4,
+      "readme_claim_conditions": "notebook run of 2026-11-18, 8 torch threads, mean of the 7 photos",
+      "difference_percent": 10.4
+    },
+    {
+      "stage": "find requested objects",
+      "seconds_mean": 0.516,
+      "seconds_min": 0.073,
+      "seconds_max": 1.466,
+      "seconds_total": 3.097,
+      "runs": 6,
+      "readme_claim_seconds": null,
+      "readme_claim_conditions": null,
+      "difference_percent": null
+    },
+    {
+      "stage": "find all objects",
+      "seconds_mean": 0.189,
+      "seconds_min": 0.037,
+      "seconds_max": 1.036,
+      "seconds_total": 1.322,
+      "runs": 7,
+      "readme_claim_seconds": null,
+      "readme_claim_conditions": null,
+      "difference_percent": null
+    },
+    {
+      "stage": "read barcodes",
+      "seconds_mean": 109.95,
+      "seconds_min": 14.657,
+      "seconds_max": 177.045,
+      "seconds_total": 769.651,
+      "runs": 7,
+      "readme_claim_seconds": 104.0,
+      "readme_claim_conditions": "notebook run of 2026-11-18, 8 torch threads, mean of the 7 photos",
+      "difference_percent": 5.7
+    },
+    {
+      "stage": "estimate normals (MoGe)",
+      "seconds_mean": 6.854,
+      "seconds_min": 4.956,
+      "seconds_max": 14.204,
+      "seconds_total": 47.978,
+      "runs": 7,
+      "readme_claim_seconds": 6.0,
+      "readme_claim_conditions": "notebook run of 2026-11-18, 8 torch threads, mean of the 7 photos",
+      "difference_percent": 14.2
+    },
+    {
+      "stage": "same queries again",
+      "seconds_mean": 0.102,
+      "seconds_min": 0.102,
+      "seconds_max": 0.102,
+      "seconds_total": 0.102,
+      "runs": 1,
+      "readme_claim_seconds": 0.102,
+      "readme_claim_conditions": "notebook run of 2026-11-18, input_2.jpg, one measurement",
+      "difference_percent": 0.4
+    },
+    {
+      "stage": "all stages of one photo",
+      "seconds_mean": 132.364,
+      "seconds_min": 32.178,
+      "seconds_max": 201.281,
+      "seconds_total": 926.549,
+      "runs": 7,
+      "readme_claim_seconds": 124.0,
+      "readme_claim_conditions": "notebook run of 2026-11-18, 8 torch threads, mean of the 7 photos",
+      "difference_percent": 6.7
+    },
+    {
+      "stage": "encode image (SAM)",
+      "seconds_mean": null,
+      "seconds_min": null,
+      "seconds_max": null,
+      "seconds_total": 0,
+      "runs": 0,
+      "readme_claim_seconds": 10.2,
+      "readme_claim_conditions": "benchmark run beside others, 8 torch threads; the notebook runs SAM only with SEGMENT = True",
+      "difference_percent": null
+    },
+    {
+      "stage": "segment objects (SAM)",
+      "seconds_mean": null,
+      "seconds_min": null,
+      "seconds_max": null,
+      "seconds_total": 0,
+      "runs": 0,
+      "readme_claim_seconds": 3.7,
+      "readme_claim_conditions": "benchmark run beside others, 8 torch threads; the notebook runs SAM only with SEGMENT = True",
+      "difference_percent": null
+    }
+  ]
+}

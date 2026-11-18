@@ -1,0 +1,79 @@
+[project]
+name = "shelfvision"
+version = "0.1.0"
+description = "Zero-shot object detection, Code128 reading and surface normals from a single image"
+authors = [{ name = "Josué Hormiga" }]
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/shelfvision"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+# MoGe depends on flex-gemm, which needs triton, and triton has no macOS wheels.
+platforms = ["win-64", "linux-64"]
+
+[tool.pixi.dependencies]
+python = "3.12.*"
+torchvision = "*"
+numpy = ">=2,<3"
+# MoGe needs gradio, which does not accept pillow 13 yet.
+pillow = ">=12,<13"
+
+# torch comes from conda-forge, because MoGe's own sources point PyPI torch at a CUDA index.
+# `pixi install` gives the CPU build; `pixi run -e gpu ...` the CUDA build, for an NVIDIA GPU.
+[tool.pixi.feature.cpu.dependencies]
+pytorch-cpu = "*"
+
+[tool.pixi.feature.gpu.dependencies]
+pytorch-gpu = "*"
+
+[tool.pixi.feature.gpu.system-requirements]
+cuda = "12"
+
+[tool.pixi.environments]
+default = ["cpu"]
+gpu = ["gpu"]
+
+[tool.pixi.pypi-dependencies]
+shelfvision = { path = ".", editable = true }
+transformers = ">=5.22,<5.23"
+safetensors = ">=0.8"
+accelerate = ">=1.15"
+opencv-python-headless = ">=4.10"
+moge = { git = "https://github.com/microsoft/MoGe.git", rev = "74fbce054ebed49800de42d0ad0e83495065719a" }
+jupyterlab = ">=4"
+pytest = ">=8"
+ruff = ">=0.8"
+
+[tool.pixi.tasks]
+notebook = "jupyter lab demo.ipynb"
+lint = "ruff check ."
+# Fast tests only; `pixi run test-slow` adds the ones that load the real model weights
+test = "pytest -m 'not slow'"
+test-slow = "pytest"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+markers = ["slow: loads real model weights"]
+
+[tool.ruff]
+line-length = 110
+extend-exclude = [".pixi"]
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PTH"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/shelfvision/detector.py" = ["E501"]
+"src/shelfvision/draw.py" = ["E501"]
+"src/shelfvision/devices.py" = ["I001"]
